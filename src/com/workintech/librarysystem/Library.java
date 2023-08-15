@@ -1,13 +1,22 @@
 package com.workintech.librarysystem;
 
+import java.util.HashMap;
 import java.util.HashSet;
 
 public class Library {
 
-    private HashSet<Book> books = new HashSet<>();
+    private HashMap<Long,Book> books = new HashMap<>();
     private HashSet<Reader> readers = new HashSet<>();
 
-    public HashSet<Book> getBooks() {
+    public Library() {
+    }
+
+    public Library(HashMap<Long, Book> books, HashSet<Reader> readers) {
+        this.books = books;
+        this.readers = readers;
+    }
+
+    public HashMap<Long,Book> getBooks() {
         return books;
     }
 
@@ -15,14 +24,14 @@ public class Library {
         return readers;
     }
     public void newBook(Book book){
-        books.add(book);
+        books.put(book.getBook_ID(), book);
     }
     public void lendBook(Book book){
 
-        if(books.contains(book)) {
+        if(books.containsValue(book)) {
             book.setStatus("borrowed");
             books.remove(book);
-            books.add(book);
+            books.put(book.getBook_ID(),book);
         }
     }
 

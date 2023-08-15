@@ -16,7 +16,7 @@ public class Member {
         this.memberID = memberID;
         this.type = type;
         this.dateOfMembership = dateOfMembership;
-        this.maxBookLimit = maxBookLimit;
+        this.maxBookLimit = 5;
         this.name = name;
         this.address = address;
         this.phoneNumber = phoneNumber;

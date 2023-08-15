@@ -22,6 +22,14 @@ public class Book {
         //this.date_of_purchase = date_of_purchase;
     }
 
+    public long getBook_ID() {
+        return book_ID;
+    }
+
+    public String getName() {
+        return name;
+    }
+
     @Override
     public String toString() {
         return "Book{" +
