@@ -32,6 +32,12 @@ public class Library {
     public void newBook(Book book){
         books.put(book.getBook_ID(), book);
     }
+
+    public void removeBook(long bookdID)
+    {
+        books.remove(bookdID);
+    }
+
     public void lendBook(Book book, long memberId){
 
         //parametre olarak alının book'un statüsü değiştirilir
@@ -43,6 +49,15 @@ public class Library {
             books.put(book.getBook_ID(),book);
 
         }
+    }
+
+    public void returnBook (long bookID) {
+
+      Book returnedBook = books.get(bookID);
+      returnedBook.setStatus(Status.LOANABLE);
+      returnedBook.setOwnerID(0);
+      books.put(bookID,returnedBook);
+
     }
 
 

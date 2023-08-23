@@ -18,12 +18,12 @@ public class Librarian extends Person {
     }
 
     //test edilecek return her zaman false dönebilir!!
-    public Boolean searchBook(String name) {
+    public Boolean searchBook(long bookID) {
 
         List<Book> books = library.getBooks().values().stream().toList();
         for (Book book : books
         ) {
-            if (book.getName().equals(name) && book.getStatus().equals(Status.LOANABLE)) return true;
+            if (book.getBook_ID() == (bookID) && book.getStatus().equals(Status.LOANABLE)) return true;
         }
         return false;
 
@@ -34,7 +34,7 @@ public class Librarian extends Person {
     }
 
     public void issueBook(Book book, long memberId) {
-        if (searchBook(book.getName())) {
+        if (searchBook(book.getBook_ID())) {
             library.lendBook(book, memberId);
         }
     }
@@ -43,19 +43,41 @@ public class Librarian extends Person {
         return library.getBooks().get(id);
     }
 
-    public void bringBooks(String bookName) {
-        library.getBooks().values().stream()
+    public List<Book> bringBooks(String bookName) {
+        return library.getBooks().values().stream()
                 .filter(book -> book.getName() == bookName)
-                .forEach(System.out::println);
+                .toList();
 
     }
 
-    public void bringBookWithAuthorName(String authorName){
-        library.getBooks().values().stream()
-                .filter(book -> (book.getAuthor().getFirstName() +" "
-                        +book.getAuthor().getLastName()).equals(authorName))
-                .forEach(System.out::println);
+    public List<Book> bringBookWithAuthorName(String authorName) {
 
+        return library.getBooks().values().stream()
+                .filter(book -> (book.getAuthor().getFirstName() + " "
+                        + book.getAuthor().getLastName()).equals(authorName))
+                .toList();
+    }
+
+    //Sistemde var olan bir kitabın bilgileri güncellenebilir.
+    public void updateBook(Book book) {
+        library.newBook(book);
+    }
+
+    public void removeBook(long bookID) {
+        library.removeBook(bookID);
+    }
+
+    public List<Book> getBooksWithCategory(Category category) {
+        return library.getBooks().values().stream()
+                .filter(book -> book.getCategory().equals(category)).toList();
+    }
+
+    public List<Book> getBooksOfAuthor(Author author) {
+        return library.getBooks().values().stream()
+                .filter(book -> book.getAuthor().equals(author)).toList();
+    }
+    public void returnBook(long bookID) {
+        library.returnBook(1);
     }
 
 }

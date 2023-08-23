@@ -9,15 +9,17 @@ public class Book {
     private String name;
     private double price;
     private Status status;
+    private Category category;
     private String edition;
     //private LocalDate date_of_purchase;
     private long ownerID;
 
-    public Book(long book_ID, Author author, String name, double price, Status status, String edition) {
+    public Book(long book_ID, Author author, String name, double price,Category category, Status status, String edition) {
         this.book_ID = book_ID;
         this.author = author;
         this.name = name;
         this.price = price;
+        this.category = category;
         this.status = status;
         this.edition = edition;
         //this.date_of_purchase = date_of_purchase;
@@ -33,6 +35,14 @@ public class Book {
 
     public Status getStatus() {
         return status;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public long getOwnerID() {
@@ -83,6 +93,7 @@ public class Book {
                 ", name='" + name + '\'' +
                 ", price=" + price +
                 ", status=" + status +
+                ", category=" + category +
                 ", edition='" + edition + '\'' +
                 ", ownerID=" + ownerID +
                 '}';
