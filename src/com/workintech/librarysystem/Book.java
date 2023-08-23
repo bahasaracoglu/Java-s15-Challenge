@@ -8,11 +8,12 @@ public class Book {
     private Author author;
     private String name;
     private double price;
-    private String status;
+    private Status status;
     private String edition;
     //private LocalDate date_of_purchase;
+    private long ownerID;
 
-    public Book(long book_ID, Author author, String name, double price, String status, String edition) {
+    public Book(long book_ID, Author author, String name, double price, Status status, String edition) {
         this.book_ID = book_ID;
         this.author = author;
         this.name = name;
@@ -30,6 +31,50 @@ public class Book {
         return name;
     }
 
+    public Status getStatus() {
+        return status;
+    }
+
+    public long getOwnerID() {
+        return ownerID;
+    }
+
+    public void setOwnerID(long ownerID) {
+        this.ownerID = ownerID;
+    }
+
+    public Author getAuthor() {
+        return author;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public String getEdition() {
+        return edition;
+    }
+
+    public void setBook_ID(long book_ID) {
+        this.book_ID = book_ID;
+    }
+
+    public void setAuthor(Author author) {
+        this.author = author;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public void setEdition(String edition) {
+        this.edition = edition;
+    }
+
     @Override
     public String toString() {
         return "Book{" +
@@ -37,12 +82,13 @@ public class Book {
                 ", author=" + author +
                 ", name='" + name + '\'' +
                 ", price=" + price +
-                ", status='" + status + '\'' +
+                ", status=" + status +
                 ", edition='" + edition + '\'' +
+                ", ownerID=" + ownerID +
                 '}';
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 }

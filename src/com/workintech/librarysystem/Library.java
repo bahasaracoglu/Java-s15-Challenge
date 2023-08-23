@@ -2,36 +2,46 @@ package com.workintech.librarysystem;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 
 public class Library {
 
     private HashMap<Long,Book> books = new HashMap<>();
-    private HashSet<Reader> readers = new HashSet<>();
+
+    private LinkedHashMap<Long,Member> members;
+
+    private MemberRecord memberRecord = new MemberRecord();
 
     public Library() {
     }
 
-    public Library(HashMap<Long, Book> books, HashSet<Reader> readers) {
+    private Library(HashMap<Long, Book> books,  MemberRecord memberRecord) {
         this.books = books;
-        this.readers = readers;
+        this.memberRecord = memberRecord;
+        this.members = memberRecord.getMembers();
     }
 
     public HashMap<Long,Book> getBooks() {
         return books;
     }
 
-    public HashSet<Reader> getReaders() {
-        return readers;
+    public LinkedHashMap<Long, Member> getMembers() {
+        return members;
     }
+
     public void newBook(Book book){
         books.put(book.getBook_ID(), book);
     }
-    public void lendBook(Book book){
+    public void lendBook(Book book, long memberId){
+
+        //parametre olarak alının book'un statüsü değiştirilir
 
         if(books.containsValue(book)) {
-            book.setStatus("borrowed");
-            books.remove(book);
+
+            book.setStatus(Status.BORROWED);
+            book.setOwnerID(memberId);
             books.put(book.getBook_ID(),book);
+
         }
     }
 

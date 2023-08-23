@@ -12,10 +12,10 @@ public class Member {
     private String address;
     private String phoneNumber;
 
-    public Member(long memberID, String type, LocalDate dateOfMembership, int maxBookLimit, String name, String address, String phoneNumber) {
+    public Member(long memberID, String type,  String name, String address, String phoneNumber) {
         this.memberID = memberID;
         this.type = type;
-        this.dateOfMembership = dateOfMembership;
+        this.dateOfMembership = LocalDate.now();
         this.maxBookLimit = 5;
         this.name = name;
         this.address = address;
