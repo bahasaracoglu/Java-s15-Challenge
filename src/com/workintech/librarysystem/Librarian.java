@@ -3,7 +3,7 @@ package com.workintech.librarysystem;
 import java.time.LocalDate;
 import java.util.List;
 
-public class Librarian extends Person {
+public class Librarian extends Person   {
 
     private Database database;
     private String password;

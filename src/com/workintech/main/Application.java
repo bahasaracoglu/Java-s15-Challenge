@@ -69,6 +69,7 @@ public class Application {
                   System.out.println("user successfully logged in");
                   loggedInMember = foundUser.get(0);
                   transactions(loggedInMember);
+                  scanner.nextLine();
               }
                 break;
             case 3 :
@@ -78,9 +79,6 @@ public class Application {
     }
     private static void transactions(Member loggedInMember) {
         System.out.println("you are in transactions");
-        System.out.println("1-Sign in");
-        System.out.println("2-Login");
-        System.out.println("3-Exit");
 
 
     }

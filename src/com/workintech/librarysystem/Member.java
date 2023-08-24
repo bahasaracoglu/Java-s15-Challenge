@@ -1,8 +1,9 @@
 package com.workintech.librarysystem;
 
 import java.time.LocalDate;
+import java.util.List;
 
-public class Member {
+public class Member extends LibraryMember {
 
     private long memberID;
     private LocalDate dateOfMembership;
@@ -25,8 +26,6 @@ public class Member {
         this.address = address;
         this.phoneNumber = phoneNumber;
     }
-
-
 
     public long getMemberID() {
         return memberID;
@@ -66,4 +65,5 @@ public class Member {
                 ", phoneNumber='" + phoneNumber + '\'' +
                 '}';
     }
+
 }
