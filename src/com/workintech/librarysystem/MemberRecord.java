@@ -5,6 +5,8 @@ import java.util.LinkedHashMap;
 
 public class MemberRecord {
 
+    public MemberRecord() {
+    }
 
     private LinkedHashMap<Long,Member> members = new LinkedHashMap<>();
 

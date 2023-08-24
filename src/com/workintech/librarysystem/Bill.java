@@ -11,12 +11,19 @@ public class Bill {
     private LocalDate deliveryDate;
     private double price;
 
+    public Bill(String bookName, String ownerName, LocalDate borrowedDate, double price) {
+        this.bookName = bookName;
+        this.ownerName = ownerName;
+        this.borrowedDate = borrowedDate;
+        this.price = price;
+    }
+
     public Bill(String bookName, String ownerName, LocalDate borrowedDate, LocalDate deliveryDate, double price) {
         this.bookName = bookName;
         this.ownerName = ownerName;
         this.borrowedDate = borrowedDate;
         this.deliveryDate = deliveryDate;
-        this.price = price;
+        this.price = price + calculateFine(borrowedDate,deliveryDate);
     }
 
     public String getBookName() {
@@ -69,8 +76,16 @@ public class Bill {
           fine = (daysBetween - 30)*0.2;
         }
         return fine;
-
     }
 
-
+    @Override
+    public String toString() {
+        return "Bill{" +
+                "bookName='" + bookName + '\'' +
+                ", ownerName='" + ownerName + '\'' +
+                ", borrowedDate=" + borrowedDate +
+                ", deliveryDate=" + deliveryDate +
+                ", price=" + price +
+                '}';
+    }
 }

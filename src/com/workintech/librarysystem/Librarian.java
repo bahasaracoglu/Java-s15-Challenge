@@ -1,26 +1,25 @@
 package com.workintech.librarysystem;
 
-import java.util.HashSet;
+import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Stream;
 
 public class Librarian extends Person {
 
-    private Library library;
+    private Database database;
     private String password;
-
     private MemberRecord memberRecord;
 
-    public Librarian(String firstName, String lastName, String password, Library library) {
+    public Librarian(String firstName, String lastName, String password, Database database, MemberRecord memberRecord) {
         super(firstName, lastName);
         this.password = password;
-        this.library = library;
+        this.database = database;
+        this.memberRecord = memberRecord;
     }
 
     //test edilecek return her zaman false dönebilir!!
     public Boolean searchBook(long bookID) {
 
-        List<Book> books = library.getBooks().values().stream().toList();
+        List<Book> books = database.getBooks().values().stream().toList();
         for (Book book : books
         ) {
             if (book.getBook_ID() == (bookID) && book.getStatus().equals(Status.LOANABLE)) return true;
@@ -33,26 +32,27 @@ public class Librarian extends Person {
         return !(memberRecord.getMember(memberID) == null);
     }
 
-    public void issueBook(Book book, long memberId) {
+    public Bill issueBook(Book book, long memberId) {
         if (searchBook(book.getBook_ID())) {
-            library.lendBook(book, memberId);
+            database.lendBook(book, memberId);
+
         }
+        return purchaseBill(book);
     }
 
     public Book bringBooks(long id) {
-        return library.getBooks().get(id);
+        return database.getBooks().get(id);
     }
 
     public List<Book> bringBooks(String bookName) {
-        return library.getBooks().values().stream()
+        return database.getBooks().values().stream()
                 .filter(book -> book.getName() == bookName)
                 .toList();
-
     }
 
     public List<Book> bringBookWithAuthorName(String authorName) {
 
-        return library.getBooks().values().stream()
+        return database.getBooks().values().stream()
                 .filter(book -> (book.getAuthor().getFirstName() + " "
                         + book.getAuthor().getLastName()).equals(authorName))
                 .toList();
@@ -60,24 +60,40 @@ public class Librarian extends Person {
 
     //Sistemde var olan bir kitabın bilgileri güncellenebilir.
     public void updateBook(Book book) {
-        library.newBook(book);
+        database.newBook(book);
     }
 
     public void removeBook(long bookID) {
-        library.removeBook(bookID);
+        database.removeBook(bookID);
     }
 
     public List<Book> getBooksWithCategory(Category category) {
-        return library.getBooks().values().stream()
+        return database.getBooks().values().stream()
                 .filter(book -> book.getCategory().equals(category)).toList();
     }
 
     public List<Book> getBooksOfAuthor(Author author) {
-        return library.getBooks().values().stream()
+        return database.getBooks().values().stream()
                 .filter(book -> book.getAuthor().equals(author)).toList();
     }
-    public void returnBook(long bookID) {
-        library.returnBook(1);
+
+    public Bill returnBook(Book book) {
+        database.returnBook(book);
+        return returnBill(book);
     }
+
+    public Bill returnBill(Book book) {
+
+        Bill newBill = new Bill(book.getName(),memberRecord.getMember(book.getOwnerID()).getName(),
+                book.getDateOfPurchase(), LocalDate.now(), book.getPrice());
+        return newBill;
+    }
+
+    public Bill purchaseBill(Book book) {
+        Bill newBill = new Bill(book.getName(), memberRecord.getMember(book.getOwnerID()).getName(),
+                book.getDateOfPurchase(), book.getPrice());
+        return newBill;
+    }
+
 
 }

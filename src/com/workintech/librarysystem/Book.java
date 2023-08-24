@@ -11,7 +11,8 @@ public class Book {
     private Status status;
     private Category category;
     private String edition;
-    //private LocalDate date_of_purchase;
+
+    private LocalDate dateOfPurchase;
     private long ownerID;
 
     public Book(long book_ID, Author author, String name, double price,Category category, Status status, String edition) {
@@ -63,6 +64,14 @@ public class Book {
 
     public String getEdition() {
         return edition;
+    }
+
+    public LocalDate getDateOfPurchase() {
+        return dateOfPurchase;
+    }
+
+    public void setDateOfPurchase(LocalDate dateOfPurchase) {
+        this.dateOfPurchase = dateOfPurchase;
     }
 
     public void setBook_ID(long book_ID) {
