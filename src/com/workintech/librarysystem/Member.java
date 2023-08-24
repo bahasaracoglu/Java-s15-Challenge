@@ -5,21 +5,23 @@ import java.time.LocalDate;
 public class Member {
 
     private long memberID;
-    private String type;
     private LocalDate dateOfMembership;
     private int maxBookLimit;
     private int numberOfBooksIssued;
-    private String name;
+    private String username;
+    private String password;
+    private String email;
     private String address;
     private String phoneNumber;
 
-    public Member(long memberID, String type,  String name, String address, String phoneNumber) {
-        this.memberID = memberID;
-        this.type = type;
+    public Member( String username,String password, String email, String address, String phoneNumber) {
+        memberID = Database.getNextMemberId();
         this.dateOfMembership = LocalDate.now();
         maxBookLimit = 5;
         numberOfBooksIssued = 0;
-        this.name = name;
+        this.username = username;
+        this.password = password;
+        this.email = email;
         this.address = address;
         this.phoneNumber = phoneNumber;
     }
@@ -30,8 +32,12 @@ public class Member {
         return memberID;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public int getNumberOfBooksIssued() {
@@ -50,10 +56,12 @@ public class Member {
     public String toString() {
         return "Member{" +
                 "memberID=" + memberID +
-                ", type='" + type + '\'' +
                 ", dateOfMembership=" + dateOfMembership +
                 ", maxBookLimit=" + maxBookLimit +
-                ", name='" + name + '\'' +
+                ", numberOfBooksIssued=" + numberOfBooksIssued +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
                 ", address='" + address + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 '}';

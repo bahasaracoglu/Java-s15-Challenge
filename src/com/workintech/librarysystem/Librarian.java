@@ -7,13 +7,13 @@ public class Librarian extends Person {
 
     private Database database;
     private String password;
-    private MemberRecord memberRecord;
 
-    public Librarian(String firstName, String lastName, String password, Database database, MemberRecord memberRecord) {
+
+    public Librarian(String firstName, String lastName, String password, Database database) {
         super(firstName, lastName);
         this.password = password;
         this.database = database;
-        this.memberRecord = memberRecord;
+
     }
 
     //test edilecek return her zaman false dönebilir!!
@@ -29,7 +29,7 @@ public class Librarian extends Person {
     }
 
     public Boolean verifyMember(Long memberID) {
-        return !(memberRecord.getMember(memberID) == null);
+        return !(database.getMember(memberID) == null);
     }
 
     public Bill issueBook(Book book, long memberId) {
@@ -78,19 +78,20 @@ public class Librarian extends Person {
     }
 
     public Bill returnBook(Book book) {
+        Bill returnBill = returnBill(book);
         database.returnBook(book);
-        return returnBill(book);
+        return returnBill;
     }
 
     public Bill returnBill(Book book) {
 
-        Bill newBill = new Bill(book.getName(),memberRecord.getMember(book.getOwnerID()).getName(),
+        Bill newBill = new Bill(book.getName(),database.getMember(book.getOwnerID()).getUsername(),
                 book.getDateOfPurchase(), LocalDate.now(), book.getPrice());
         return newBill;
     }
 
     public Bill purchaseBill(Book book) {
-        Bill newBill = new Bill(book.getName(), memberRecord.getMember(book.getOwnerID()).getName(),
+        Bill newBill = new Bill(book.getName(), database.getMember(book.getOwnerID()).getUsername(),
                 book.getDateOfPurchase(), book.getPrice());
         return newBill;
     }

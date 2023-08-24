@@ -23,7 +23,7 @@ public class Book {
         this.category = category;
         this.status = status;
         this.edition = edition;
-        //this.date_of_purchase = date_of_purchase;
+
     }
 
     public long getBook_ID() {
